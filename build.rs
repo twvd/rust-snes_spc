@@ -11,6 +11,8 @@ fn main() {
         .flag_if_supported("-Wno-implicit-fallthrough")
         .flag_if_supported("-Wno-shift-negative-value")
         .flag_if_supported("-Wno-array-bounds") // oh no
+        .flag_if_supported("-Wno-mismatched-tags")
+        .flag_if_supported("-Wno-unused-const-variable")
         // #defines
         .define("NDEBUG", None)
         .define("BLARGG_NONPORTABLE", None)

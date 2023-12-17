@@ -35,15 +35,7 @@ impl fmt::Display for SpcError {
 }
 
 impl error::Error for SpcError {
-    fn description(&self) -> &str {
-        match *self {
-            SpcError::Internal(ref e) => &e,
-            SpcError::Io(ref e) => e.description(),
-            SpcError::OddSizeBuffer => "sample buffer size not multiple of two",
-        }
-    }
-
-    fn cause(&self) -> Option<&error::Error> {
+    fn cause(&self) -> Option<&dyn error::Error> {
         match *self {
             SpcError::Internal(_) => None,
             SpcError::Io(ref e) => Some(e),
