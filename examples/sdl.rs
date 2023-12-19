@@ -1,8 +1,8 @@
 extern crate sdl2;
 extern crate snes_spc;
 
-use snes_spc::SnesSpc;
 use sdl2::audio::{AudioCallback, AudioSpecDesired};
+use snes_spc::SnesSpc;
 use std::thread;
 
 struct SpcPlayer(SnesSpc);
@@ -31,17 +31,19 @@ fn main() {
         samples: None,
     };
 
-    let audio = sdl_audio.open_playback(None, &desired_spec, |spec| {
-        println!("Audio initialized: {:?}", spec);
-        let mut spc = SpcPlayer::new("examples/surprise.spc");
+    let audio = sdl_audio
+        .open_playback(None, &desired_spec, |spec| {
+            println!("Audio initialized: {:?}", spec);
+            let mut spc = SpcPlayer::new("examples/surprise.spc");
 
-        // This is an example of an SPC dump with a dirty echo buffer;
-        // try commenting out this line and listen to the hot garbage
-        // at the beginning of playback!
-        spc.0.clear_echo();
+            // This is an example of an SPC dump with a dirty echo buffer;
+            // try commenting out this line and listen to the hot garbage
+            // at the beginning of playback!
+            spc.0.clear_echo();
 
-        spc
-    }).unwrap();
+            spc
+        })
+        .unwrap();
 
     audio.resume();
 
